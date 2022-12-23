@@ -25,10 +25,10 @@ def start_message(message):
         collection.insert_one(data)
     else:
         #for el in collection.find_one({'id': message.from_user.id}): city = el.city
-        user = collection.find_one({'id': message.from_user.id})
-        print(user.city)
-        currency = get_currency_rate(user.city)
-        msg = f'Курс валют в городе {user.city} на {datetime.now.strftime("%d.%m.%Y %H:%M:%S")}'
+        city = collection.find_one({'id': message.from_user.id})['city']
+        print(city)
+        currency = get_currency_rate(city)
+        msg = f'Курс валют в городе {city} на {datetime.now.strftime("%d.%m.%Y %H:%M:%S")}'
         cols = ['Валюта', 'Покупка', 'Продажа']
         msg += tabulate(currency, headers=cols, stralign='right', colalign=('left',))
         bot.send_message(message.from_user.id, '<pre>'+msg+'</pre>', parse_mode='HTML')
