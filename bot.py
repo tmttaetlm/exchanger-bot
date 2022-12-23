@@ -1,4 +1,5 @@
 import telebot
+from datetime import datetime
 from tabulate import tabulate
 from modules.keyboards import keyboard
 from modules.message_handlers import message_handler
@@ -13,20 +14,21 @@ def start_message(message):
     collection = get_collection('users')
     cd = collection.count_documents({ 'id':  message.from_user.id })
     if cd == 0:
+        res = bot.send_message(message.chat.id, "Выберите город", reply_markup=keyboard('cities'))
         data = {
             'id':  message.from_user.id,
             'username': message.from_user.username if message.from_user.username is not None else '',
             'first_name': message.from_user.first_name if message.from_user.first_name is not None else '',
             'last_name': message.from_user.last_name if message.from_user.last_name is not None else '',
+            'msg_id': res.id,
         }
         collection.insert_one(data)
-        bot.send_message(message.chat.id, "Выберите город", reply_markup=keyboard('cities'))
     else:
-        for el in collection.find_one({'id': message.from_user.id}):
-            city = el.city
+        for el in collection.find_one({'id': message.from_user.id}): city = el.city
         currency = get_currency_rate(city)
+        msg = f'Курс валют в городе {city} на {datetime.now.strftime("%d.%m.%Y %H:%M:%S")}'
         cols = ['Валюта', 'Покупка', 'Продажа']
-        msg = tabulate(currency, headers=cols, stralign='right', colalign=('left',))
+        msg += tabulate(currency, headers=cols, stralign='right', colalign=('left',))
         bot.send_message(message.from_user.id, '<pre>'+msg+'</pre>', parse_mode='HTML')
 
 @bot.message_handler(content_types=['text'])
