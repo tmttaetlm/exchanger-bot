@@ -24,7 +24,6 @@ def start_message(message):
         }
         collection.insert_one(data)
     else:
-        #for el in collection.find_one({'id': message.from_user.id}): city = el.city
         city = collection.find_one({'id': message.from_user.id})['city']
         print(city)
         currency = get_currency_rate(city)
