@@ -14,7 +14,8 @@ def message_handler(bot, message):
     if message.text == 'Сменить город':
         collection = get_collection('users')
         city = collection.find_one({'id': message.from_user.id})['city']
-        bot.send_message(message.from_user.id, 
+        res = bot.send_message(message.from_user.id, 
                         f'Ваш текущий город {city}.\nВыберите другой город', 
                         reply_markup=keyboard('cities'), 
                         parse_mode='HTML')
+        collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id }})
