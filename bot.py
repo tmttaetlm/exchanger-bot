@@ -23,7 +23,10 @@ def start_message(message):
         collection.insert_one(data)
     else:
         city = collection.find_one({'id': message.from_user.id})['city']
-        bot.send_message(message.from_user.id, currency_rate_msg(city), parse_mode='HTML')
+        bot.send_message(message.from_user.id,
+                        currency_rate_msg(city),
+                        reply_markup=keyboard('mainmenu'),
+                        parse_mode='HTML')
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):

@@ -1,4 +1,5 @@
 from modules.mongo import get_collection
+from modules.keyboards import keyboard
 from modules.functions import currency_rate_msg
 
 def callback_handler(bot, callback):
@@ -12,4 +13,7 @@ def callback_handler(bot, callback):
         except: pass
         collection.update_one({'id': callback.from_user.id}, {'$set': {'city': city }})
 
-        bot.send_message(callback.from_user.id, currency_rate_msg(city), parse_mode='HTML')
+        bot.send_message(callback.from_user.id, 
+                        currency_rate_msg(city), 
+                        reply_markup=keyboard('mainmenu'), 
+                        parse_mode='HTML')

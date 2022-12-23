@@ -6,7 +6,10 @@ def message_handler(bot, message):
     if message.text == 'Курсы валют в моем городе':
         collection = get_collection('users')
         city = collection.find_one({'id': message.from_user.id})['city']
-        bot.send_message(message.from_user.id, currency_rate_msg(city), parse_mode='HTML')
+        bot.send_message(message.from_user.id,
+                        currency_rate_msg(city),
+                        reply_markup=keyboard('mainmenu'),
+                        parse_mode='HTML')
 
     if message.text == 'Сменить город':
         collection = get_collection('users')
