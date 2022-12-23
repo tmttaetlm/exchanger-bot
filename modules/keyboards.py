@@ -4,6 +4,7 @@ def keyboard(type, params = {}):
     if type == 'mainmenu':
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard = True)
         keyboard.add(types.KeyboardButton('Курсы валют в моем городе'))
+        keyboard.add(types.KeyboardButton('Сменить город'))
     if type == 'cities':
         keyboard = types.InlineKeyboardMarkup()
         keyboard.row(types.InlineKeyboardButton('Алматы', callback_data = 'city_almaty'),
