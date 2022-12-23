@@ -12,7 +12,7 @@ bot = telebot.TeleBot('5299933627:AAFadtni2QPlSxeikWyTYNN-DukFGkm_KY0')
 @bot.message_handler(commands=['start'])
 def start_message(message):
     collection = get_collection('users')
-    cd = collection.count_documents({ 'id':  message.from_user.id })
+    cd = collection.count_documents({ 'id': message.from_user.id })
     if cd == 0:
         res = bot.send_message(message.chat.id, "Выберите город", reply_markup=keyboard('cities'))
         data = {
@@ -26,6 +26,7 @@ def start_message(message):
     else:
         #for el in collection.find_one({'id': message.from_user.id}): city = el.city
         city = collection.find_one({'id': message.from_user.id})
+        print(city)
         currency = get_currency_rate(city)
         msg = f'Курс валют в городе {city} на {datetime.now.strftime("%d.%m.%Y %H:%M:%S")}'
         cols = ['Валюта', 'Покупка', 'Продажа']
