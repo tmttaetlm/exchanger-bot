@@ -9,7 +9,7 @@ def message_handler(bot, message):
         collection = get_collection('users')
         city = collection.find_one({'id': message.from_user.id})['city']
         currency = get_currency_rate(city)
-        msg = f'Курс валют в городе {city} на {datetime.now.strftime("%d.%m.%Y %H:%M:%S")}'
+        msg = f'Курс валют в городе {city} на {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
         cols = ['Валюта', 'Покупка', 'Продажа']
         msg += tabulate(currency, headers=cols, stralign='right', colalign=('left',))
         bot.send_message(message.from_user.id, '<pre>'+msg+'</pre>', parse_mode='HTML')

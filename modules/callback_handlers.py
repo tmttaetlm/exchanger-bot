@@ -15,7 +15,7 @@ def callback_handler(bot, callback):
         collection.update_one({'id': callback.from_user.id}, {'$set': {'city': city }})
 
         currency = get_currency_rate(city)
-        msg = f'Курс валют в городе {city} на {datetime.now.strftime("%d.%m.%Y %H:%M:%S")}'
+        msg = f'Курс валют в городе {city} на {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}'
         cols = ['Валюта', 'Покупка', 'Продажа']
         msg += tabulate(currency, headers=cols, stralign='right', colalign=('left',))
         bot.send_message(callback.from_user.id, '<pre>'+msg+'</pre>', parse_mode='HTML')
