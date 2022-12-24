@@ -1,3 +1,5 @@
+# This Python file uses the following encoding: utf-8
+
 import telebot
 from modules.keyboards import keyboard
 from modules.message_handlers import message_handler
