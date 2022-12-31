@@ -16,5 +16,21 @@ def get_currency_rate(city='kostanay'):
         sell = lst[i].find(class_='col-lg-12').contents[3].find(class_='currency-rate-big')
         tmp.append(sell.text.strip().replace(' ', '').replace('\n', ': '))
         result.append(tmp)
+    return result
 
+def get_exchanger_list(city='kostanay', currency='USD'):
+    r = requests.get(f'https://ifin.kz/exchange/{city}/{currency.upper()}')
+    html = bs(r.content, 'html.parser')
+    main = html.find(class_='tbl-hovered')
+    lst = main.find_all(class_='tbl-row')
+    result = []
+    for el in lst:
+        tmp = []
+        exchanger = el.contents[3].find('a').text.strip().replace('\n', ': ')
+        sell_price = el.contents[5].find('span').text.strip().replace('\n', ': ')
+        buy_price = el.contents[7].find('span').text.strip().replace('\n', ': ')
+        tmp.append(exchanger)
+        tmp.append(sell_price)
+        tmp.append(buy_price)
+        result.append(tmp)
     return result

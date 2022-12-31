@@ -1,10 +1,17 @@
 from datetime import datetime
 from tabulate import tabulate
-from modules.parser import get_currency_rate
+from modules.parser import get_currency_rate, get_exchanger_list
 
 def currency_rate_msg(city):
     currency = get_currency_rate(city)
     msg = f'Курс валют в городе {city} на {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}\n\n'
     cols = ['Валюта', 'Покупка', 'Продажа']
     msg += tabulate(currency, headers=cols, stralign='right', colalign=('left',))
+    return '<pre>'+msg+'</pre>'
+
+def exchenger_list_msg(city, currency):
+    exchanger = get_exchanger_list(city, currency)
+    msg = f'Курс {currency} в городе {city} на {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}\n\n'
+    cols = ['', 'Покупка', 'Продажа']
+    msg += tabulate(exchanger, headers=cols, stralign='right', colalign=('left',), maxcolwidths=[13, 9, 9])
     return '<pre>'+msg+'</pre>'
