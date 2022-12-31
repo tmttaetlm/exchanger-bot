@@ -36,7 +36,7 @@ def get_exchanger_list(city='kostanay', currency='USD'):
     return result
 
 def get_converted_currency(city='kostanay', action='from', currency_from='USD', currency_to='KZT', count='1000'):
-    link = f'https://ifin.kz/exchange/search?city={city}&ExchangeForm[method]={action}&ExchangeForm[count]={count}&ExchangeForm[currencyFrom]={currency_from}&ExchangeForm[currencyTo]={currency_to}'
+    link = f'https://ifin.kz/exchange/search?city={city}&ExchangeForm[method]={action}&ExchangeForm[count]={count}&ExchangeForm[currencyFrom]={currency_from.upper()}&ExchangeForm[currencyTo]={currency_to.upper()}'
     print(link)
     r = requests.get(link)
     html = bs(r.content, 'html.parser')
