@@ -32,10 +32,12 @@ def keyboard(type, params = {}):
                     types.InlineKeyboardButton('Экибастуз', callback_data = 'city_ekibastuz'))
     if type == 'currencies':
         keyboard = types.InlineKeyboardMarkup()
-        keyboard.row(types.InlineKeyboardButton('KZT', callback_data = 'currency_kzt'),
-                    types.InlineKeyboardButton('USD', callback_data = 'currency_usd'),
+        keyboard.row(types.InlineKeyboardButton('USD', callback_data = 'currency_usd'),
                     types.InlineKeyboardButton('EUR', callback_data = 'currency_eur'),
-                    types.InlineKeyboardButton('RUB', callback_data = 'currency_rub'))
+                    types.InlineKeyboardButton('RUB', callback_data = 'currency_rub'),
+                    types.InlineKeyboardButton('CNY', callback_data = 'currency_cny'))
+        if params.need_kzt:
+            keyboard.row(types.InlineKeyboardButton('KZT', callback_data = 'currency_kzt'))
     if type == 'actions':
         keyboard = types.InlineKeyboardMarkup()
         keyboard.row(types.InlineKeyboardButton('Хочу обменять', callback_data = 'action_from'))

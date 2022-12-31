@@ -20,7 +20,7 @@ def callback_handler(bot, callback):
         if user['mode'] == 'convert':
             if user['step'] == 2:
                 collection.update_one({'id': callback.from_user.id}, {'$set': {'currency_from': currency, 'mode': 'convert', 'step': 3 }})
-                res = bot.send_message(callback.from_user.id, 'Выберите вторую валюту', reply_markup=keyboard('currencies'), parse_mode='HTML')
+                res = bot.send_message(callback.from_user.id, 'Выберите вторую валюту', reply_markup=keyboard('currencies', {'need_kzt': True}), parse_mode='HTML')
             if user['step'] == 3:
                 collection.update_one({'id': callback.from_user.id}, {'$set': {'currency_to': currency, 'mode': 'convert', 'step': 4 }})
                 res = bot.send_message(callback.from_user.id, 'Введите сумму', parse_mode='HTML')
@@ -32,5 +32,5 @@ def callback_handler(bot, callback):
         action = callback.data[callback.data.index('_')+1:len(callback.data)]
         try: bot.delete_message(callback.from_user.id, user['msg_id'])
         except: pass
-        res = bot.send_message(callback.from_user.id, 'Выберите первую валюту', reply_markup=keyboard('currencies'), parse_mode='HTML')
+        res = bot.send_message(callback.from_user.id, 'Выберите первую валюту', reply_markup=keyboard('currencies', {'need_kzt': True}), parse_mode='HTML')
         collection.update_one({'id': callback.from_user.id}, {'$set': {'msg_id': res.id, 'action': action, 'mode': 'convert', 'step': 2 }})
