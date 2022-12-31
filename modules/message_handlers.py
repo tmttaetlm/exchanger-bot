@@ -15,7 +15,7 @@ def message_handler(bot, message):
 
     if message.text == 'Калькулятор конвертации валют':
         res = bot.send_message(message.from_user.id, 'Выберите действие', reply_markup=keyboard('actions'), parse_mode='HTML')
-        collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id, 'mode': 'convert', 'step': 1 }})
+        collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id, 'mode': 'convert', 'step': 1, 'action': None, 'currency_from': None, 'currency_to': None }})
 
     if message.text == 'Сменить город':
         res = bot.send_message(message.from_user.id, 'Ваш текущий город '+user['city']+'.\nВыберите другой город', reply_markup=keyboard('cities'), parse_mode='HTML')
