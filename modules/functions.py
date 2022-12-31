@@ -17,7 +17,7 @@ def exchenger_list_msg(city, currency):
     return '<pre>'+msg+'</pre>'
 
 def converted_currency_msg(city, action, currency_from, currency_to, count):
-    converter = get_converted_currency()
+    converter = get_converted_currency(city, action, currency_from, currency_to, count)
     cols = ['Обменник', 'Курс', 'Сумма']
     msg = tabulate(converter, headers=cols, stralign='right', colalign=('left',), maxcolwidths=[13, 9, 9])
     return '<pre>'+msg+'</pre>'

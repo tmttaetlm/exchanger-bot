@@ -22,5 +22,5 @@ def message_handler(bot, message):
         collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id }})
 
     if user['mode'] == 'convert' and user['step'] == 4:
-        res = bot.send_message(message.from_user.id, converted_currency_msg(), parse_mode='HTML')
+        res = bot.send_message(message.from_user.id, converted_currency_msg(user['city'], user['action'], user['currency_from'], user['currency_to'], message.text), parse_mode='HTML')
         collection.update_one({'id': message.from_user.id}, {'$set': {'action': None, 'currency_from': None, 'currency_to': None, 'mode': None, 'step': None}})
