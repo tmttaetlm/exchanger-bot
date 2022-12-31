@@ -24,6 +24,7 @@ def callback_handler(bot, callback):
             if user['step'] == 3:
                 collection.update_one({'id': callback.from_user.id}, {'$set': {'currency_to': currency, 'mode': 'convert', 'step': 4 }})
                 res = bot.send_message(callback.from_user.id, 'Введите сумму', parse_mode='HTML')
+            collection.update_one({'id': callback.from_user.id}, {'$set': {'msg_id': res.id }})
         else:
             bot.send_message(callback.from_user.id, exchenger_list_msg(user['city'], currency), parse_mode='HTML')
 
