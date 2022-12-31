@@ -18,7 +18,7 @@ def message_handler(bot, message):
         collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id, 'mode': 'convert', 'step': 1 }})
 
     if message.text == 'Сменить город':
-        res = bot.send_message(message.from_user.id, f'Ваш текущий город {user.city}.\nВыберите другой город', reply_markup=keyboard('cities'), parse_mode='HTML')
+        res = bot.send_message(message.from_user.id, 'Ваш текущий город '+user['city']+'.\nВыберите другой город', reply_markup=keyboard('cities'), parse_mode='HTML')
         collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id }})
 
     if user['action'] is not None and user['currency_from'] is not None and user['currency_to'] is not None:
