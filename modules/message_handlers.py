@@ -10,7 +10,7 @@ def message_handler(bot, message):
         bot.send_message(message.from_user.id, currency_rate_msg(user['city']), parse_mode='HTML')
 
     if message.text == 'Обменные пункты по валюте':
-        res = bot.send_message(message.from_user.id, 'Выберите валюту', reply_markup=keyboard('currencies'), parse_mode='HTML')
+        res = bot.send_message(message.from_user.id, 'Выберите валюту', reply_markup=keyboard('currencies', {'need_kzt': False}), parse_mode='HTML')
         collection.update_one({'id': message.from_user.id}, {'$set': {'msg_id': res.id }})
 
     if message.text == 'Калькулятор конвертации валют':
