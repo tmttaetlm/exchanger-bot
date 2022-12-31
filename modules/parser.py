@@ -34,3 +34,24 @@ def get_exchanger_list(city='kostanay', currency='USD'):
         tmp.append(buy_price)
         result.append(tmp)
     return result
+
+def get_converted_currency(city='kostanay', action='from', currency_from='USD', currency_to='KZT', count='1000'):
+    r = requests.get(f'https://ifin.kz/exchange/search?city={city}&'+
+                    f'ExchangeForm[method]={action}&'+
+                    f'ExchangeForm[count]={count}&'+
+                    f'ExchangeForm[currencyFrom]={currency_from}&'+
+                    f'ExchangeForm[currencyTo]={currency_to}')
+    html = bs(r.content, 'html.parser')
+    main = html.find(id='p0')
+    lst = main.find_all(class_='tbl-row')
+    result = []
+    for el in lst:
+        tmp = []
+        exchanger = el.contents[3].find('a').text.strip().replace('\n', ': ')
+        price = el.contents[5].find('span').text.strip().replace('\n', ': ')
+        summary = el.contents[7].find('b').text.strip().replace('\n', ': ')
+        tmp.append(exchanger)
+        tmp.append(price)
+        tmp.append(summary)
+        result.append(tmp)
+    return result

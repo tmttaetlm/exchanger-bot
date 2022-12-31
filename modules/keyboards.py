@@ -5,6 +5,7 @@ def keyboard(type, params = {}):
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard = True)
         keyboard.add(types.KeyboardButton('Курсы валют в моем городе'))
         keyboard.add(types.KeyboardButton('Обменные пункты по валюте'))
+        keyboard.add(types.KeyboardButton('Калькулятор конвертации валют'))
         keyboard.add(types.KeyboardButton('Сменить город'))
     if type == 'cities':
         keyboard = types.InlineKeyboardMarkup()
@@ -13,7 +14,7 @@ def keyboard(type, params = {}):
                     types.InlineKeyboardButton('Шымкент', callback_data = 'city_shymkent'))
         keyboard.row(types.InlineKeyboardButton('Актау', callback_data = 'city_aktau'),
                     types.InlineKeyboardButton('Актобе', callback_data = 'city_aktobe'),
-                    types.InlineKeyboardButton('Атырау', callback_data = 'city_atyrau')),
+                    types.InlineKeyboardButton('Атырау', callback_data = 'city_atyrau'))
         keyboard.row(types.InlineKeyboardButton('Жезказган', callback_data = 'city_zhezkazgan'),
                     types.InlineKeyboardButton('Караганда', callback_data = 'city_karaganda'),
                     types.InlineKeyboardButton('Кокшетау', callback_data = 'city_kokshetau'))
@@ -34,4 +35,8 @@ def keyboard(type, params = {}):
         keyboard.row(types.InlineKeyboardButton('USD', callback_data = 'currency_usd'),
                     types.InlineKeyboardButton('EUR', callback_data = 'currency_eur'),
                     types.InlineKeyboardButton('RUB', callback_data = 'currency_rub'))
+    if type == 'actions':
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.row(types.InlineKeyboardButton('Хочу обменять', callback_data = 'action_from'))
+        keyboard.row(types.InlineKeyboardButton('Хочу получить', callback_data = 'action_to'))
     return keyboard
