@@ -24,10 +24,10 @@ def start_message(message):
         }
         collection.insert_one(data)
     else:
-        city = collection.find_one({'id': message.from_user.id})['city']
+        user = collection.find_one({'id': message.from_user.id})
         bot.send_message(message.from_user.id,
-                        currency_rate_msg(city),
-                        reply_markup=keyboard('mainmenu'),
+                        currency_rate_msg(user['city']),
+                        reply_markup=keyboard('mainmenu', {'subscription': user['subscription']}),
                         parse_mode='HTML')
 
 @bot.message_handler(content_types=['text'])

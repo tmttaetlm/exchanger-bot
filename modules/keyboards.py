@@ -7,6 +7,8 @@ def keyboard(type, params = {}):
         keyboard.add(types.KeyboardButton('Обменные пункты по валюте'))
         keyboard.add(types.KeyboardButton('Калькулятор конвертации валют'))
         keyboard.add(types.KeyboardButton('Сменить город'))
+        subs = params['subscription'] if 'subscription' in params else False
+        keyboard.add(types.KeyboardButton('Отключить мониторинг курса' if subs else 'Включить мониторинг курса'))
     if type == 'cities':
         keyboard = types.InlineKeyboardMarkup()
         keyboard.row(types.InlineKeyboardButton('Алматы', callback_data = 'city_almaty'),

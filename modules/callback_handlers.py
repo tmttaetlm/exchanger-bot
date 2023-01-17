@@ -11,7 +11,7 @@ def callback_handler(bot, callback):
         try: bot.delete_message(callback.from_user.id, user['msg_id'])
         except: pass
         collection.update_one({'id': callback.from_user.id}, {'$set': {'city': city }})
-        bot.send_message(callback.from_user.id, currency_rate_msg(city), reply_markup=keyboard('mainmenu'), parse_mode='HTML')
+        bot.send_message(callback.from_user.id, currency_rate_msg(city), reply_markup=keyboard('mainmenu', {'subscription': user['subscription']}), parse_mode='HTML')
         
     if callback.data.startswith('currency_'):
         currency = callback.data[callback.data.index('_')+1:len(callback.data)]
