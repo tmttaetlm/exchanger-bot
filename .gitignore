@@ -1,3 +1,2 @@
-.idea
 modules/__pycache__
-process.log
+.venv/

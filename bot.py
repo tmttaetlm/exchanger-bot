@@ -7,7 +7,7 @@ from modules.callback_handlers import callback_handler
 from modules.mongo import get_collection
 from modules.functions import currency_rate_msg
 
-bot = telebot.TeleBot('5299933627:AAFadtni2QPlSxeikWyTYNN-DukFGkm_KY0')
+bot = telebot.TeleBot('5822916674:AAGf_tMq-GAks2YoOFcbIMkzYNeU8tKK9Zk')
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
